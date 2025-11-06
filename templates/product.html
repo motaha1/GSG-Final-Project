@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ product.name if product else 'Product' }}</title>
+  <link rel="stylesheet" href="/static/styles.css" />
+  <meta name="product-id" content="{{ product.id if product else '' }}" />
+  <style>
+    .product-detail {
+      max-width: 800px;
+      margin: 2rem auto;
+    }
+    .product-detail img {
+      width: 100%;
+      max-width: 500px;
+      height: auto;
+      border-radius: 8px;
+      margin-bottom: 1.5rem;
+    }
+    .product-info {
+      margin-bottom: 2rem;
+    }
+    .product-info h1 {
+      margin: 0 0 1rem 0;
+    }
+    .meta {
+      display: flex;
+      gap: 2rem;
+      margin: 1rem 0;
+      font-size: 1.1rem;
+    }
+    .meta > div {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    #purchase {
+      background: #f5f5f5;
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-top: 2rem;
+    }
+    #purchase-form {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-end;
+    }
+    #purchase-form label {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    #purchase-form input {
+      padding: 0.5rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      width: 100px;
+    }
+    #purchase-form button {
+      padding: 0.5rem 2rem;
+      font-size: 1rem;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    #purchase-form button:hover {
+      background: #0056b3;
+    }
+    .result {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      white-space: pre-wrap;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <p><a href="/shop">← Back to All Products</a></p>
+
+    {% if error %}
+      <h1>Product Not Found</h1>
+      <p>The product you're looking for doesn't exist.</p>
+    {% else %}
+      <div class="product-detail">
+        <div class="product-info">
+          <h1 id="product-name">{{ product.name }}</h1>
+          <img src="{{ product.image_url or 'https://via.placeholder.com/500x400?text=Product' }}" alt="{{ product.name }}" />
+          <div class="meta">
+            <div>Price: <strong id="product-price">${{ '%.2f'|format(product.price) }}</strong></div>
+            <div>Stock: <strong id="product-stock">{{ product.stock }}</strong></div>
+          </div>
+        </div>
+
+        <section id="purchase">
+          <h3>Purchase This Product</h3>
+          <form id="purchase-form">
+            <label>
+              Quantity
+              <input id="quantity" type="number" min="1" step="1" value="1" required />
+            </label>
+            <button type="submit">Buy Now</button>
+          </form>
+          <pre id="result" class="result"></pre>
+        </section>
+      </div>
+    {% endif %}
+  </main>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
+

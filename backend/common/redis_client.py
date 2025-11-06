@@ -19,21 +19,33 @@ async def get_redis() -> Redis:
         async with _lock:
             if _redis is None:
                 try:
-                    _redis = Redis(
-                        host=settings.REDIS_HOST,
-                        port=settings.REDIS_PORT,
-                        username=getattr(settings, "REDIS_USERNAME", None) or None,
-                        password=settings.REDIS_PASSWORD or None,
-                        db=settings.REDIS_DB,
-                        decode_responses=True,
-                        ssl=True,              # Azure uses TLS
-                        ssl_cert_reqs=ssl.CERT_NONE,    # relax cert verification for local/dev
-                    )
+                    conn_kwargs = {
+                        "host": settings.REDIS_HOST,
+                        "port": settings.REDIS_PORT,
+                        "username": getattr(settings, "REDIS_USERNAME", None) or None,
+                        "password": settings.REDIS_PASSWORD or None,
+                        "db": settings.REDIS_DB,
+                        "decode_responses": True,
+                    }
+                    if settings.REDIS_SSL:
+                        conn_kwargs.update(
+                            {
+                                "ssl": True,
+                                # relax cert verification for local/dev unless overridden by env
+                                "ssl_cert_reqs": ssl.CERT_NONE,
+                            }
+                        )
+                    _redis = Redis(**conn_kwargs)
                     # Validate connection quickly
                     await _redis.ping()
-                    _logger.info("Connected to Azure Redis at %s:%s", settings.REDIS_HOST, settings.REDIS_PORT)
+                    _logger.info(
+                        "Connected to Redis at %s:%s (SSL=%s)",
+                        settings.REDIS_HOST,
+                        settings.REDIS_PORT,
+                        settings.REDIS_SSL,
+                    )
                 except Exception as e:
-                    _logger.error("Failed to connect to Azure Redis: %s", str(e))
+                    _logger.error("Failed to connect to Redis: %s", str(e))
                     _redis = None
                     raise
     return _redis

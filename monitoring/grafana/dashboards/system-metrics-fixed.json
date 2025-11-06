@@ -1,0 +1,238 @@
+{
+  "uid": "system-app",
+  "title": "System and App Metrics - FIXED",
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "5s",
+  "time": {
+    "from": "now-15m",
+    "to": "now"
+  },
+  "panels": [
+    {
+      "id": 1,
+      "type": "graph",
+      "title": "CPU Usage (%)",
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0},
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "100 - (avg(rate(node_cpu_seconds_total{mode=\"idle\"}[1m])) * 100)",
+          "legendFormat": "CPU Usage %"
+        }
+      ],
+      "yaxes": [
+        {"format": "percent", "min": 0, "max": 100},
+        {"format": "short"}
+      ],
+      "lines": true,
+      "fill": 1,
+      "linewidth": 2,
+      "legend": {
+        "show": true,
+        "values": true,
+        "current": true,
+        "max": true,
+        "avg": true
+      }
+    },
+    {
+      "id": 2,
+      "type": "graph",
+      "title": "Memory Usage (MB)",
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0},
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "(node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / 1024 / 1024",
+          "legendFormat": "Used MB"
+        },
+        {
+          "refId": "B",
+          "expr": "node_memory_MemTotal_bytes / 1024 / 1024",
+          "legendFormat": "Total MB"
+        }
+      ],
+      "yaxes": [
+        {"format": "short", "label": "MB", "min": 0},
+        {"format": "short"}
+      ],
+      "lines": true,
+      "fill": 1,
+      "linewidth": 2,
+      "legend": {
+        "show": true,
+        "values": true,
+        "current": true,
+        "max": true,
+        "avg": true
+      }
+    },
+    {
+      "id": 3,
+      "type": "graph",
+      "title": "HTTP Request Rate (req/s)",
+      "gridPos": {"h": 7, "w": 12, "x": 0, "y": 8},
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum(rate(http_requests_total[1m])) by (endpoint)",
+          "legendFormat": "{{endpoint}}"
+        }
+      ],
+      "yaxes": [
+        {"format": "reqps", "min": 0},
+        {"format": "short"}
+      ],
+      "lines": true,
+      "fill": 1,
+      "linewidth": 2,
+      "legend": {
+        "show": true,
+        "alignAsTable": true,
+        "rightSide": true,
+        "values": true,
+        "current": true,
+        "max": true
+      }
+    },
+    {
+      "id": 4,
+      "type": "graph",
+      "title": "HTTP Latency - p50 (Median)",
+      "gridPos": {"h": 7, "w": 12, "x": 12, "y": 8},
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "histogram_quantile(0.50, sum(rate(http_request_duration_seconds_bucket[5m])) by (le, endpoint))",
+          "legendFormat": "p50 - {{endpoint}}"
+        }
+      ],
+      "yaxes": [
+        {"format": "s", "min": 0},
+        {"format": "short"}
+      ],
+      "lines": true,
+      "fill": 1,
+      "linewidth": 2,
+      "legend": {
+        "show": true,
+        "alignAsTable": true,
+        "rightSide": true,
+        "values": true,
+        "current": true,
+        "avg": true
+      }
+    },
+    {
+      "id": 5,
+      "type": "graph",
+      "title": "HTTP Latency - p95",
+      "gridPos": {"h": 7, "w": 12, "x": 0, "y": 15},
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[5m])) by (le, endpoint))",
+          "legendFormat": "p95 - {{endpoint}}"
+        }
+      ],
+      "yaxes": [
+        {"format": "s", "min": 0},
+        {"format": "short"}
+      ],
+      "lines": true,
+      "fill": 1,
+      "linewidth": 2,
+      "legend": {
+        "show": true,
+        "alignAsTable": true,
+        "rightSide": true,
+        "values": true,
+        "current": true,
+        "max": true
+      }
+    },
+    {
+      "id": 6,
+      "type": "graph",
+      "title": "HTTP Latency - p99",
+      "gridPos": {"h": 7, "w": 12, "x": 12, "y": 15},
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "histogram_quantile(0.99, sum(rate(http_request_duration_seconds_bucket[5m])) by (le, endpoint))",
+          "legendFormat": "p99 - {{endpoint}}"
+        }
+      ],
+      "yaxes": [
+        {"format": "s", "min": 0},
+        {"format": "short"}
+      ],
+      "lines": true,
+      "fill": 1,
+      "linewidth": 2,
+      "legend": {
+        "show": true,
+        "alignAsTable": true,
+        "rightSide": true,
+        "values": true,
+        "current": true,
+        "max": true
+      }
+    },
+    {
+      "id": 7,
+      "type": "graph",
+      "title": "All Latency Percentiles Combined",
+      "gridPos": {"h": 8, "w": 24, "x": 0, "y": 22},
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "histogram_quantile(0.50, sum(rate(http_request_duration_seconds_bucket[5m])) by (le))",
+          "legendFormat": "p50 (median)"
+        },
+        {
+          "refId": "B",
+          "expr": "histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[5m])) by (le))",
+          "legendFormat": "p95"
+        },
+        {
+          "refId": "C",
+          "expr": "histogram_quantile(0.99, sum(rate(http_request_duration_seconds_bucket[5m])) by (le))",
+          "legendFormat": "p99"
+        }
+      ],
+      "yaxes": [
+        {"format": "s", "min": 0},
+        {"format": "short"}
+      ],
+      "lines": true,
+      "fill": 2,
+      "linewidth": 2,
+      "legend": {
+        "show": true,
+        "alignAsTable": true,
+        "rightSide": true,
+        "values": true,
+        "current": true,
+        "avg": true,
+        "max": true
+      },
+      "seriesOverrides": [
+        {"alias": "p50 (median)", "color": "#73BF69"},
+        {"alias": "p95", "color": "#FADE2A"},
+        {"alias": "p99", "color": "#F2495C"}
+      ]
+    }
+  ],
+  "templating": {"list": []}
+}
+

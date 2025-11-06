@@ -5,33 +5,46 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>E-Commerce Dashboard</title>
   <link rel="stylesheet" href="/static/styles.css" />
+  <style>
+    .hero {
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+    .cta-button {
+      display: inline-block;
+      padding: 1rem 2rem;
+      background: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-size: 1.2rem;
+      margin-top: 2rem;
+      transition: background 0.3s;
+    }
+    .cta-button:hover {
+      background: #0056b3;
+    }
+  </style>
 </head>
 <body>
   <main class="container">
-    <h1>E-Commerce Dashboard</h1>
+    <div class="hero">
+      <h1>E-Commerce Dashboard</h1>
+      <p>Welcome to our online store with real-time inventory updates!</p>
+      <a href="/shop" class="cta-button">Browse All Products →</a>
+    </div>
 
-    <section id="product">
-      <h2 id="product-name">Loading...</h2>
-      <div class="meta">
-        <div>Price: $<span id="product-price">-</span></div>
-        <div>Stock: <span id="product-stock">-</span></div>
-      </div>
-    </section>
-
-    <section id="purchase">
-      <h3>Purchase</h3>
-      <form id="purchase-form">
-        <label>
-          Quantity
-          <input id="quantity" type="number" min="1" step="1" value="1" required />
-        </label>
-        <button type="submit">Buy</button>
-      </form>
-      <pre id="result" class="result"></pre>
+    <section style="margin-top: 3rem;">
+      <h2>Features</h2>
+      <ul>
+        <li>✅ Real-time stock updates via Server-Sent Events (SSE)</li>
+        <li>✅ Multiple products with images</li>
+        <li>✅ Instant purchase processing with Kafka</li>
+        <li>✅ Redis caching for performance</li>
+        <li>✅ Monitoring with Prometheus & Grafana</li>
+      </ul>
     </section>
   </main>
-
-  <script src="/static/app.js"></script>
 </body>
 </html>
 

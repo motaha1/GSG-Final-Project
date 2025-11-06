@@ -1,0 +1,388 @@
+{
+  "uid": "system-app-complete",
+  "title": "System Metrics - CPU & RAM with Numbers",
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "5s",
+  "time": {
+    "from": "now-15m",
+    "to": "now"
+  },
+  "panels": [
+    {
+      "id": 1,
+      "type": "stat",
+      "title": "CPU Usage % (Current)",
+      "gridPos": {"h": 4, "w": 6, "x": 0, "y": 0},
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\".+\"}[1m])) / sum(machine_cpu_cores) * 100",
+          "instant": true
+        }
+      ],
+      "options": {
+        "graphMode": "none",
+        "colorMode": "value",
+        "textMode": "value_and_name",
+        "reduceOptions": {
+          "values": false,
+          "calcs": ["lastNotNull"]
+        }
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "decimals": 1,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {"value": 0, "color": "green"},
+              {"value": 50, "color": "yellow"},
+              {"value": 80, "color": "red"}
+            ]
+          },
+          "mappings": []
+        }
+      }
+    },
+    {
+      "id": 2,
+      "type": "stat",
+      "title": "Memory Usage (MB)",
+      "gridPos": {"h": 4, "w": 6, "x": 6, "y": 0},
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum(container_memory_usage_bytes{name=~\".+\"}) / 1024 / 1024",
+          "instant": true
+        }
+      ],
+      "options": {
+        "graphMode": "none",
+        "colorMode": "value",
+        "textMode": "value_and_name",
+        "reduceOptions": {
+          "values": false,
+          "calcs": ["lastNotNull"]
+        }
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "decimals": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {"value": 0, "color": "green"},
+              {"value": 2000, "color": "yellow"},
+              {"value": 4000, "color": "red"}
+            ]
+          },
+          "mappings": []
+        }
+      }
+    },
+    {
+      "id": 3,
+      "type": "stat",
+      "title": "Memory Usage %",
+      "gridPos": {"h": 4, "w": 6, "x": 12, "y": 0},
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum(container_memory_usage_bytes{name=~\".+\"}) / sum(machine_memory_bytes) * 100",
+          "instant": true
+        }
+      ],
+      "options": {
+        "graphMode": "none",
+        "colorMode": "value",
+        "textMode": "value_and_name",
+        "reduceOptions": {
+          "values": false,
+          "calcs": ["lastNotNull"]
+        }
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "decimals": 1,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {"value": 0, "color": "green"},
+              {"value": 70, "color": "yellow"},
+              {"value": 90, "color": "red"}
+            ]
+          },
+          "mappings": []
+        }
+      }
+    },
+    {
+      "id": 4,
+      "type": "stat",
+      "title": "Targets UP",
+      "gridPos": {"h": 4, "w": 6, "x": 18, "y": 0},
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum(up)"
+        }
+      ],
+      "options": {
+        "graphMode": "none",
+        "colorMode": "value",
+        "textMode": "value_and_name"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {"value": 0, "color": "red"},
+              {"value": 3, "color": "yellow"},
+              {"value": 4, "color": "green"}
+            ]
+          }
+        }
+      }
+    },
+    {
+      "id": 5,
+      "type": "graph",
+      "title": "CPU Usage % (Chart)",
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 4},
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum(rate(container_cpu_usage_seconds_total{name=~\".+\"}[1m])) by (name) / scalar(sum(machine_cpu_cores)) * 100",
+          "legendFormat": "{{name}}"
+        }
+      ],
+      "yaxes": [
+        {"format": "percent", "min": 0},
+        {"format": "short"}
+      ],
+      "lines": true,
+      "fill": 2,
+      "linewidth": 2,
+      "legend": {
+        "show": true,
+        "values": true,
+        "current": true,
+        "max": true,
+        "avg": true
+      },
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      }
+    },
+    {
+      "id": 6,
+      "type": "graph",
+      "title": "Memory Usage (MB) (Chart)",
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 4},
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum(container_memory_usage_bytes{name=~\".+\"}) by (name) / 1024 / 1024",
+          "legendFormat": "{{name}}"
+        }
+      ],
+      "yaxes": [
+        {"format": "short", "label": "MB", "min": 0},
+        {"format": "short"}
+      ],
+      "lines": true,
+      "fill": 2,
+      "linewidth": 2,
+      "legend": {
+        "show": true,
+        "values": true,
+        "current": true,
+        "max": true,
+        "avg": true
+      },
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      }
+    },
+    {
+      "id": 7,
+      "type": "graph",
+      "title": "HTTP Request Rate (req/s)",
+      "gridPos": {"h": 7, "w": 12, "x": 0, "y": 12},
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "sum(rate(http_requests_total[1m])) by (endpoint)",
+          "legendFormat": "{{endpoint}}"
+        }
+      ],
+      "yaxes": [
+        {"format": "reqps", "min": 0},
+        {"format": "short"}
+      ],
+      "lines": true,
+      "fill": 1,
+      "linewidth": 2,
+      "legend": {
+        "show": true,
+        "alignAsTable": true,
+        "rightSide": true,
+        "values": true,
+        "current": true,
+        "max": true
+      }
+    },
+    {
+      "id": 8,
+      "type": "graph",
+      "title": "HTTP Latency - p50 (Median)",
+      "gridPos": {"h": 7, "w": 12, "x": 12, "y": 12},
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "histogram_quantile(0.50, sum(rate(http_request_duration_seconds_bucket[5m])) by (le, endpoint))",
+          "legendFormat": "p50 - {{endpoint}}"
+        }
+      ],
+      "yaxes": [
+        {"format": "s", "min": 0},
+        {"format": "short"}
+      ],
+      "lines": true,
+      "fill": 1,
+      "linewidth": 2,
+      "legend": {
+        "show": true,
+        "alignAsTable": true,
+        "rightSide": true,
+        "values": true,
+        "current": true,
+        "avg": true
+      }
+    },
+    {
+      "id": 9,
+      "type": "graph",
+      "title": "HTTP Latency - p95",
+      "gridPos": {"h": 7, "w": 12, "x": 0, "y": 19},
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[5m])) by (le, endpoint))",
+          "legendFormat": "p95 - {{endpoint}}"
+        }
+      ],
+      "yaxes": [
+        {"format": "s", "min": 0},
+        {"format": "short"}
+      ],
+      "lines": true,
+      "fill": 1,
+      "linewidth": 2,
+      "legend": {
+        "show": true,
+        "alignAsTable": true,
+        "rightSide": true,
+        "values": true,
+        "current": true,
+        "max": true
+      }
+    },
+    {
+      "id": 10,
+      "type": "graph",
+      "title": "HTTP Latency - p99",
+      "gridPos": {"h": 7, "w": 12, "x": 12, "y": 19},
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "histogram_quantile(0.99, sum(rate(http_request_duration_seconds_bucket[5m])) by (le, endpoint))",
+          "legendFormat": "p99 - {{endpoint}}"
+        }
+      ],
+      "yaxes": [
+        {"format": "s", "min": 0},
+        {"format": "short"}
+      ],
+      "lines": true,
+      "fill": 1,
+      "linewidth": 2,
+      "legend": {
+        "show": true,
+        "alignAsTable": true,
+        "rightSide": true,
+        "values": true,
+        "current": true,
+        "max": true
+      }
+    },
+    {
+      "id": 11,
+      "type": "graph",
+      "title": "All Latency Percentiles Combined",
+      "gridPos": {"h": 8, "w": 24, "x": 0, "y": 26},
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "histogram_quantile(0.50, sum(rate(http_request_duration_seconds_bucket[5m])) by (le))",
+          "legendFormat": "p50 (median)"
+        },
+        {
+          "refId": "B",
+          "expr": "histogram_quantile(0.95, sum(rate(http_request_duration_seconds_bucket[5m])) by (le))",
+          "legendFormat": "p95"
+        },
+        {
+          "refId": "C",
+          "expr": "histogram_quantile(0.99, sum(rate(http_request_duration_seconds_bucket[5m])) by (le))",
+          "legendFormat": "p99"
+        }
+      ],
+      "yaxes": [
+        {"format": "s", "min": 0},
+        {"format": "short"}
+      ],
+      "lines": true,
+      "fill": 2,
+      "linewidth": 2,
+      "legend": {
+        "show": true,
+        "alignAsTable": true,
+        "rightSide": true,
+        "values": true,
+        "current": true,
+        "avg": true,
+        "max": true
+      },
+      "seriesOverrides": [
+        {"alias": "p50 (median)", "color": "#73BF69"},
+        {"alias": "p95", "color": "#FADE2A"},
+        {"alias": "p99", "color": "#F2495C"}
+      ]
+    }
+  ],
+  "templating": {"list": []}
+}
+
