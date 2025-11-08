@@ -1,0 +1,56 @@
+{
+  "total_time": 68.31299829483032,
+  "total_requests": 10000,
+  "successful": 9650,
+  "failed": 350,
+  "timeouts": 0,
+  "requests_per_second": 146.38,
+  "response_times": {
+    "min_ms": 4.821,
+    "max_ms": 4989.65,
+    "mean_ms": 654.21,
+    "p50_ms": 590.72,
+    "p90_ms": 1205.48,
+    "p95_ms": 1503.11,
+    "p99_ms": 1875.87
+  },
+  "container_metrics": {
+    "cpu_app1:8080": {
+      "min": 0.412,
+      "max": 91.232,
+      "avg": 62.751
+    },
+    "cpu_app2:8080": {
+      "min": 0.398,
+      "max": 90.421,
+      "avg": 61.843
+    },
+    "cpu_total": {
+      "min": 0.398,
+      "max": 91.232,
+      "avg": 62.297,
+      "median": 64.531
+    },
+    "ram_app1:8080": {
+      "min": 182.75,
+      "max": 238.41,
+      "avg": 215.64
+    },
+    "ram_app2:8080": {
+      "min": 176.33,
+      "max": 242.77,
+      "avg": 211.53
+    },
+    "ram_total": {
+      "min": 176.33,
+      "max": 242.77,
+      "avg": 213.58,
+      "median": 217.11
+    }
+  },
+  "status_codes": {
+    "200": 9650,
+    "400": 350
+  },
+  "errors": {}
+}

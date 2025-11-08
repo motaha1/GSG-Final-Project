@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AgentMigrationStateService">
+    <option name="pendingSessionIds">
+      <option value="e89c0da6-6482-47e9-9cb3-e48ca578cdc2" />
+    </option>
+    <option name="pendingTurns">
+      <map>
+        <entry key="e89c0da6-6482-47e9-9cb3-e48ca578cdc2">
+          <value>
+            <set>
+              <option value="d48e2f07-da2f-4a8b-b5e7-f886933a54b5" />
+              <option value="8a338ed7-a428-4397-b082-54b2eeb14f0a" />
+              <option value="dd51a62d-1b2a-4b1b-be3b-0c4f5bcbeb95" />
+              <option value="9d2f55dc-42b1-400d-a10d-569aa9f92c27" />
+              <option value="f6ed8e68-cb2f-43ac-8ef1-93d0e5b91832" />
+              <option value="cafacc3a-ab12-4e17-b3b0-281d5548dac8" />
+              <option value="ed7a6ffd-9e6e-4f2e-abaa-bfb03264fc83" />
+              <option value="ac2572d5-13b3-43c7-b121-c887fd1ed015" />
+              <option value="ec19c974-e1bf-4e5a-93ce-199a06a8d4b7" />
+              <option value="27e4a728-9aa2-4569-acf8-9e24e8e8902b" />
+              <option value="76caece4-8e2b-4b37-8e71-fd40c03f63d1" />
+              <option value="5ab1fe06-1d81-4fea-8e92-07df2d7e6624" />
+              <option value="b8ff2279-0946-434f-9f82-11f567a4aa8d" />
+              <option value="1138c651-05da-45b9-a88e-040ee7dc0d7e" />
+            </set>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <pendingWorkingSetItems>
+      <entry key="e89c0da6-6482-47e9-9cb3-e48ca578cdc2">
+        <set>
+          <option value="file://$PROJECT_DIR$/backend/orders/service.py" />
+          <option value="file://$PROJECT_DIR$/static/payment.js" />
+          <option value="file://$PROJECT_DIR$/static/payment.css" />
+          <option value="file://$PROJECT_DIR$/templates/payment.html" />
+          <option value="file://$PROJECT_DIR$/templates/index.html" />
+          <option value="file://$PROJECT_DIR$/templates/products.html" />
+          <option value="file://$PROJECT_DIR$/templates/product.html" />
+          <option value="file://$PROJECT_DIR$/static/products.js" />
+          <option value="file://$PROJECT_DIR$/static/app.js" />
+          <option value="file://$PROJECT_DIR$/static/styles.css" />
+          <option value="file://$PROJECT_DIR$/EMOJI_REMOVAL_SUMMARY.md" />
+          <option value="file://$PROJECT_DIR$/load_test.py" />
+          <option value="file://$PROJECT_DIR$/LOAD_TEST_ENHANCEMENT.md" />
+          <option value="file://$PROJECT_DIR$/verify_loadtest.py" />
+          <option value="file://$PROJECT_DIR$/LOADTEST_QUICKSTART.md" />
+          <option value="file://$PROJECT_DIR$/monitoring/grafana/dashboards/docker-containers.json" />
+          <option value="file://$PROJECT_DIR$/DOCKER_METRICS_GUIDE.md" />
+          <option value="file://$PROJECT_DIR$/verify_docker_metrics.py" />
+          <option value="file://$PROJECT_DIR$/SETUP_COMPLETE.md" />
+          <option value="file://$PROJECT_DIR$/monitoring/grafana/dashboards/system-metrics-fixed.json" />
+          <option value="file://$PROJECT_DIR$/GRAFANA_DOCKER_METRICS.md" />
+          <option value="file://$PROJECT_DIR$/QUICKSTART_GRAFANA.md" />
+          <option value="file://$PROJECT_DIR$/check_container_names.py" />
+          <option value="file://$PROJECT_DIR$/monitoring/grafana/dashboards/application-metrics.json" />
+          <option value="file://$PROJECT_DIR$/GRAFANA_FIX.md" />
+          <option value="file://$PROJECT_DIR$/LOAD_TEST_METRICS_EXPLAINED.md" />
+          <option value="file://$PROJECT_DIR$/QUICK_ANSWER.md" />
+          <option value="file://$PROJECT_DIR$/LOAD_TEST_FIX.md" />
+          <option value="file://$PROJECT_DIR$/start.bat" />
+        </set>
+      </entry>
+    </pendingWorkingSetItems>
+  </component>
+</project>

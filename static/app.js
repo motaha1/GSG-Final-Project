@@ -54,9 +54,9 @@
 
     // Add explanatory text
     const tooltip = {
-      'redis': '⚡ Cached (Fast)',
-      'db': '💾 Database',
-      'cache-hit': '✨ Cache Hit'
+      'redis': 'Cached (Fast)',
+      'db': 'Database',
+      'cache-hit': 'Cache Hit'
     };
     badge.title = tooltip[source] || source;
   }
@@ -145,7 +145,7 @@
         if (!Number.isNaN(parsed)) lastStock = parsed;
         currentProductId = data.product_id;
 
-        logMessage(`✓ Product loaded: ${data.name}`, 'success', {
+        logMessage(`Product loaded: ${data.name}`, 'success', {
           source: 'Redis/Cache',
           stock: data.stock,
           price: data.price
@@ -192,7 +192,7 @@
       es.addEventListener('open', () => {
         console.log('[SSE] connected');
         updateConnectionStatus('connected');
-        logMessage('✓ SSE connection established', 'success');
+        logMessage('SSE connection established', 'success');
       });
 
       es.addEventListener('stock', (ev) => {
@@ -306,25 +306,25 @@
         console.log('[BUY] response', data);
 
         if (res.ok) {
-          logMessage('✓ Purchase order submitted successfully', 'success', data);
+          logMessage('Purchase order submitted successfully', 'success', data);
           showToast('Order submitted! Processing...', 'success');
 
-          logMessage('→ Order sent to Kafka', 'info');
-          logMessage('→ Waiting for payment processing...', 'info');
+          logMessage('Order sent to Kafka', 'info');
+          logMessage('Waiting for payment processing...', 'info');
 
           // After a successful publish to Kafka, the worker will update stock and emit SSE.
           // Wait up to 10s for the next SSE stock event and print it.
           try {
             const next = await waitNextStockEvent(10000);
             console.log('[SSE] next after purchase', next);
-            logMessage(`✓ Stock updated from DB: ${next}`, 'success', {
-              source: 'Database → Redis → SSE',
+            logMessage(`Stock updated from DB: ${next}`, 'success', {
+              source: 'Database -> Redis -> SSE',
               new_stock: next
             });
             showToast(`Purchase complete! Stock: ${next}`, 'success');
           } catch (timeoutErr) {
             console.warn('[SSE] no event within 10s');
-            logMessage('⚠ No stock update received (check worker logs)', 'warning');
+            logMessage('No stock update received (check worker logs)', 'warning');
             showToast('Order submitted but stock update delayed', 'warning');
           }
         } else {

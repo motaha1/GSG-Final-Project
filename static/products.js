@@ -14,9 +14,9 @@
 
     statusEl.className = 'connection-status ' + status;
     const text = {
-      'connected': '✓ Live Updates Active',
-      'connecting': '⟳ Connecting...',
-      'disconnected': '✗ Disconnected'
+      'connected': 'Live Updates Active',
+      'connecting': 'Connecting...',
+      'disconnected': 'Disconnected'
     };
     statusEl.textContent = text[status] || status;
   }
@@ -41,7 +41,7 @@
       updateConnectionStatus('connecting');
 
       es.addEventListener('open', () => {
-        console.log('[SSE] ✅ Connected - Real-time stock updates active');
+        console.log('[SSE] Connected - Real-time stock updates active');
         updateConnectionStatus('connected');
         showToast('Real-time updates connected!', 'success');
       });
@@ -94,19 +94,19 @@
               stockEl.classList.add('low');
             }
 
-            console.log(`[SSE] ✅ Product ${pid} stock updated: ${oldValue} → ${newValue} (${delta >= 0 ? '+' : ''}${delta})`);
+            console.log(`[SSE] Product ${pid} stock updated: ${oldValue} to ${newValue} (${delta >= 0 ? '+' : ''}${delta})`);
 
             // Show toast notification
             showToast(`Product ${pid}: Stock ${newValue} (${delta >= 0 ? '+' : ''}${delta})`,
                      delta < 0 ? 'warning' : 'success');
 
             // Log data source
-            console.log(`[DATA SOURCE] Redis Pub/Sub → SSE → UI`);
+            console.log(`[DATA SOURCE] Redis Pub/Sub -> SSE -> UI`);
           } else {
-            console.warn(`[SSE] ⚠️ No element found for product ${pid}`);
+            console.warn(`[SSE] No element found for product ${pid}`);
           }
         } else {
-          console.warn('[SSE] ⚠️ No product_id in payload');
+          console.warn('[SSE] No product_id in payload');
         }
       });
 
@@ -117,13 +117,13 @@
           console.log('[SSE] Reconnecting...');
           updateConnectionStatus('connecting');
         } else if (es.readyState === EventSource.CLOSED) {
-          console.error('[SSE] ❌ Connection closed');
+          console.error('[SSE] Connection closed');
           updateConnectionStatus('disconnected');
           showToast('Connection lost. Refresh to reconnect.', 'error');
         }
       };
     } catch (e) {
-      console.error('[SSE] ❌ Failed to initialize:', e);
+      console.error('[SSE] Failed to initialize:', e);
       updateConnectionStatus('disconnected');
     }
   }
@@ -166,6 +166,6 @@
     startSSE();
   }, 100);
 
-  console.log('[PRODUCTS.JS] ✓ Ready for real-time updates');
+  console.log('[PRODUCTS.JS] Ready for real-time updates');
 })();
 

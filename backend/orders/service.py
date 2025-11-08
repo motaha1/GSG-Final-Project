@@ -14,6 +14,10 @@ async def submit_purchase(product_id: int, quantity: int) -> Dict:
         return {"ok": False, "error": "product_not_found"}
     if quantity <= 0:
         return {"ok": False, "error": "invalid_quantity"}
+    if stock == 0:
+        return {"ok": False, "error": "out_of_stock"}
+    if stock < quantity:
+        return {"ok": False, "error": "insufficient_stock", "available": stock}
 
     # Create order with pending status
     order_id = await create_order(product_id, quantity, status="pending")

@@ -54,10 +54,6 @@ h1 {
   gap: 0.5rem;
 }
 
-h1::before {
-  content: "🛒";
-  font-size: 2.5rem;
-}
 
 /* Loading Spinner */
 .loading {
